@@ -32,6 +32,10 @@ function InitializeSpaceship() {
        	y : 3
       }
     ],
+    latest : {
+        x : 100,
+        y : 100
+    },
     scale : 5,
     speed : 3,
     initialized : true,
@@ -76,7 +80,8 @@ function RenderSpaceship(context) {
     SPACE_SHIP.rotation
   );
   context.moveTo(SPACE_SHIP.x + rotatedPoint[0],SPACE_SHIP.y +  rotatedPoint[1]);
-
+  SPACE_SHIP.latest.x = SPACE_SHIP.x + rotatedPoint[0];
+  SPACE_SHIP.latest.y = SPACE_SHIP.y + rotatedPoint[1];
   // Begin rendering the space ship points (rotating them each time)
   context.beginPath();
   for (var i = 0; i < SPACE_SHIP.positions.length; i++) {
@@ -95,12 +100,23 @@ function RenderSpaceship(context) {
   context.stroke();
 }
 
-function newBullet() {
+function RenderBullets(context) {
+  if (SPACE_SHIP.bullets) {
+  for (var i = 0; i < SPACE_SHIP.bullets.length; i++) {
+    context.moveTo(SPACE_SHIP.bullets[i].x, SPACE_SHIP.bullets[i].y);
+    context.strokeRect(SPACE_SHIP.bullets[i].x, SPACE_SHIP.bullets[i].y, 5, 5);
+  }
+}
+}
+
+function AddBullet() {
   SPACE_SHIP.bullets.push(
     {
-        x :SPACE_SHIP.y,
-        y : SPACE_SHIP.x,
-        rotation : SPACE_SHIP.rotation
+        x : SPACE_SHIP.latest.x,
+        y : SPACE_SHIP.latest.y,
+        rotation : SPACE_SHIP.rotation,
+        date : new Date().valueOf(),
+        remove : false
     }
   )
 }

@@ -18,7 +18,6 @@ var CONTROLS = {
 };
 
 document.addEventListener('keydown', function(event) {
-  console.log(event);
   switch (event.key) {
     case "ArrowUp":
       CONTROLS.ship.forward = true;
@@ -33,7 +32,9 @@ document.addEventListener('keydown', function(event) {
       CONTROLS.ship.rotateClockwise = true;
       break;
     case " ":
-      CONTROLS.fire = true;
+      CONTROLS.fire.active = true;
+      break;
+    default:
       break;
   }
 });
@@ -54,7 +55,9 @@ document.addEventListener('keyup', function(event) {
       CONTROLS.ship.rotateClockwise = false;
       break;
     case " ":
-      CONTROLS.fire = false;
+      CONTROLS.fire.active = false;
+      break;
+    default:
       break;
   }
 });

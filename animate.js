@@ -22,12 +22,39 @@ function handleShipAnimation() {
 }
 
 function handleBulletAnimation() {
-  if (CONTROLS.fire.active) {
-    if (CONTROLS.fire.lastFireTime > (new Date().valueOf()+ 1000)) {
-      CONTROLS.fire.lastFireTime = new Date().valueOf();
+  var BULLET_LIFE_TIME = 1500;
+  var BULLET_DELAY_MS = 500;
+  if (!SPACE_SHIP.initialized) {
+    return;
+  }
 
+  var timeNow = new Date().valueOf();
+  if (CONTROLS.fire.active) {
+    if ((CONTROLS.fire.lastFireTime + BULLET_DELAY_MS) < timeNow) {
+      CONTROLS.fire.lastFireTime = new Date().valueOf();
+      AddBullet();
     }
   }
+
+  SPACE_SHIP.bullets.forEach(function(bullet, index, object) {
+
+      // Move the bullet forward
+        var radians = (Math.PI / 180) * bullet.rotation,
+            cos = Math.cos(radians),
+            sin = Math.sin(radians);
+        bullet.x += SPACE_SHIP.speed * sin;
+        bullet.y +=  SPACE_SHIP.speed * cos;
+
+        // If the bullet expired, remove bullet
+        if ((bullet.date + BULLET_LIFE_TIME) < timeNow ) {
+          bullet.remove = true;
+        }
+  });
+
+  SPACE_SHIP.bullets = SPACE_SHIP.bullets.filter(
+    (bullet) => {
+    return (bullet.remove == false);
+  });
 }
 
 function runGame() {
@@ -35,10 +62,11 @@ function runGame() {
   handleBulletAnimation();
 
 
-    var canvas = document.getElementById('mainCanvas');
-    var context = canvas.getContext('2d');
-    context.clearRect(0, 0, 600, 300);
-      RenderSpaceship(context);
+  var canvas = document.getElementById('mainCanvas');
+  var context = canvas.getContext('2d');
+  context.clearRect(0, 0, 600, 300);
+  RenderSpaceship(context);
+  RenderBullets(context);
   window.requestAnimationFrame(runGame);
 
 }
