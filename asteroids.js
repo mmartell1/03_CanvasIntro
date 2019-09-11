@@ -1,8 +1,3 @@
-var ASTEROID  = {
-  x : 0,
-  y : 0,
-  angle : 0
-};
 
 var ASTEROIDS = {
   level : 1,
@@ -15,12 +10,13 @@ var ASTEROIDS = {
     yMin : 50,
     yMax : 100
   },
-  baseSpeed : 5
+  baseSpeed : 3,
+  pixelScaleBySize : 5
 };
 
 
 function AddAsteroid(size) {
-  size = 10;
+  size = 3;
   // Generate asteroid location
   var locationXY = GetNewAsteroidLocation();
   var direction = GetNewAsteroidDirection();
@@ -31,7 +27,8 @@ function AddAsteroid(size) {
       x : locationXY[0],
       y : locationXY[1],
       angle : direction,
-      size : size
+      size : size,
+      remove : false
     }
   );
 }
@@ -70,6 +67,11 @@ function RenderAsteroids(context) {
         context.moveTo(asteroid.x, asteroid.y);
         context.strokeStyle = 'black';
         context.lineWidth = 2;
-        context.strokeRect(asteroid.x, asteroid.y, 10, 10);
+        context.strokeRect(
+          asteroid.x,
+          asteroid.y,
+          asteroid.size * ASTEROIDS.pixelScaleBySize,
+          asteroid.size * ASTEROIDS.pixelScaleBySize
+        );
   });
 }

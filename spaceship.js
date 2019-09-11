@@ -1,6 +1,6 @@
 
 // Create a global variable for the spaceship
-var SPACE_SHIP = {initialized : false};
+
 
 function InitializeSpaceship() {
   var canvas = document.getElementById('mainCanvas');
@@ -10,6 +10,7 @@ function InitializeSpaceship() {
     x : 300,
     y : 150,
     rotation : 0,
+    health : 3,
     positions : [
       {
         x : 0,
@@ -96,7 +97,23 @@ function RenderSpaceship(context) {
     );
   }
   context.lineWidth = 1;
-  context.strokeStyle = 'blue';
+  switch (SPACE_SHIP.health) {
+    case 3:
+      context.strokeStyle = 'green';
+      break;
+    case 2:
+      context.strokeStyle = 'blue';
+      break;
+    case 1:
+      context.strokeStyle = 'orange';
+      break;
+    case 0:
+      context.strokeStyle = 'red';
+      break;
+    default:
+      context.strokeStyle = 'white';
+      break;
+  }
   context.stroke();
 }
 
@@ -105,7 +122,20 @@ function RenderBullets(context) {
   for (var i = 0; i < SPACE_SHIP.bullets.length; i++) {
     context.moveTo(SPACE_SHIP.bullets[i].x, SPACE_SHIP.bullets[i].y);
     context.lineWidth = 1;
-    context.strokeStyle = 'blue';
+    switch (SPACE_SHIP.health) {
+      case 3:
+        context.strokeStyle = 'green';
+        break;
+      case 2:
+        context.strokeStyle = 'blue';
+        break;
+      case 1:
+        context.strokeStyle = 'orange';
+        break;
+      case 0:
+        context.strokeStyle = 'red';
+        break;
+    }
     context.strokeRect(SPACE_SHIP.bullets[i].x, SPACE_SHIP.bullets[i].y, 5, 5);
   }
 }

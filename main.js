@@ -1,12 +1,14 @@
 
-// Javascript Asteroids
+// Javascript Asteroids!
 
 
 function Start() {
+
+  // Initialize Spaceship
   InitializeSpaceship();
 
-  AddAsteroid();
-  AddAsteroid();
-  AddAsteroid();
-
+  // Initialize Asteroids
+  for (var i = 0; i < ASTEROIDS.activeCount; i++) {
+    AddAsteroid();
+  }
 }
