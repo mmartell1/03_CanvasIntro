@@ -57,16 +57,44 @@ function handleBulletAnimation() {
   });
 }
 
+function handleAsteroidAnimation() {
+    ASTEROIDS.asteroids.forEach(function(asteroid, index, object) {
+
+        // Move the bullet forward
+          var radians = (Math.PI / 180) * asteroid.angle,
+              cos = Math.cos(radians),
+              sin = Math.sin(radians);
+          asteroid.x += ASTEROIDS.baseSpeed * sin;
+          asteroid.y +=  ASTEROIDS.baseSpeed * cos;
+
+          // Check if asteroid is leaving the boundary, if so, switch sides
+          if (asteroid.x > GAME.canvas.width) {
+            asteroid.x = 0;
+          } else if (asteroid.x < 0) {
+            asteroid.x = 600;
+          } else if (asteroid.y > GAME.canvas.height) {
+            asteroid.y = 0;
+          } else if (asteroid.y < 0) {
+            asteroid.y = 300;
+          }
+    });
+
+}
+
+
 function runGame() {
   handleShipAnimation();
   handleBulletAnimation();
+  handleAsteroidAnimation();
 
+  //
 
   var canvas = document.getElementById('mainCanvas');
   var context = canvas.getContext('2d');
   context.clearRect(0, 0, 600, 300);
   RenderSpaceship(context);
   RenderBullets(context);
+  RenderAsteroids(context);
   window.requestAnimationFrame(runGame);
 
 }

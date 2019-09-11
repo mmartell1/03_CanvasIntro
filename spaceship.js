@@ -7,8 +7,8 @@ function InitializeSpaceship() {
   var context = canvas.getContext('2d');
   context.scale(1,1);
   SPACE_SHIP = {
-    x : 100,
-    y : 100,
+    x : 300,
+    y : 150,
     rotation : 0,
     positions : [
       {
@@ -33,8 +33,8 @@ function InitializeSpaceship() {
       }
     ],
     latest : {
-        x : 100,
-        y : 100
+        x : SPACE_SHIP.x,
+        y : SPACE_SHIP.y,
     },
     scale : 5,
     speed : 3,
@@ -104,6 +104,8 @@ function RenderBullets(context) {
   if (SPACE_SHIP.bullets) {
   for (var i = 0; i < SPACE_SHIP.bullets.length; i++) {
     context.moveTo(SPACE_SHIP.bullets[i].x, SPACE_SHIP.bullets[i].y);
+    context.lineWidth = 1;
+    context.strokeStyle = 'blue';
     context.strokeRect(SPACE_SHIP.bullets[i].x, SPACE_SHIP.bullets[i].y, 5, 5);
   }
 }
