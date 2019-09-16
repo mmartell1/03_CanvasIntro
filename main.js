@@ -1,14 +1,12 @@
 
-// Javascript Asteroids!
+// Javascript Canvas Intro!
 
-
+/**
+ *  This is called once after the HTML of the page loads
+ *
+ */
 function Start() {
 
   // Initialize Spaceship
   InitializeSpaceship();
-
-  // Initialize Asteroids
-  for (var i = 0; i < ASTEROIDS.activeCount; i++) {
-    AddAsteroid();
-  }
 }

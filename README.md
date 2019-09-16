@@ -1,2 +1,1 @@
-# 02_Debugging
-Code samples for debugging
+# 03_CanvasIntro
