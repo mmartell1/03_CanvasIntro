@@ -41,12 +41,18 @@ function RenderNewObject(context) {
   // Draw a new item here using the canvas 'context' variable
   var canvas = document.getElementById('mainCanvas');
   var context = canvas.getContext('2d');
-  context.fillRect(25, 25, 100, 100);
+  //NEW_OBJECT.x = 25;
+  //NEW_OBJECT.y = 25
+  context.moveTo(NEW_OBJECT.x, NEW_OBJECT.y);
+  context.fillRect(NEW_OBJECT.x, NEW_OBJECT.y, 100, 100);
+
+  //NEW_OBJECT.x = 25;
+  //NEW_OBJECT.y = 25
 }
 
 function HandleNewObjectMovement() {
-  //NEW_OBJECT.x += 20;
-  //NEW_OBJECT.y += 1;
+  NEW_OBJECT.x += 10;
+  NEW_OBJECT.y += 0;
 }
 
 function runGame() {
